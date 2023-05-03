@@ -4,11 +4,14 @@ sequenceDiagram
     participant server
 
     browser->>server: POST new_note
-    server->>browser: GET notes
+    server->>browser: GET changed html
 
-    server->>browser: GET main.css
+    browser->>server: GET main.css
+    server->>browser: the css file
 
-    server->>browser: GET main.js
+    browser->>server: GET main.js
+    server->>browser: the js file
 
-    server->>browser: GET data.json
+    browser->>server: GET data.json
+    server->>browser: the json data
 ```
