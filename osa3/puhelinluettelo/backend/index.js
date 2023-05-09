@@ -27,6 +27,7 @@ app.get('/info', (req, res) => {
 })
 
 app.get('/api/persons', (req, res, next) => {
+
     Person.find({}).then(result => {
         res.json(result)
     })
@@ -43,6 +44,7 @@ app.get('/api/persons/:id', (req, res, next) => {
 })
 
 app.delete('/api/persons/:id', (req, res, next) => {
+
     Person.findByIdAndRemove(req.params.id).then(person => {
         if (person) res.json(person)
         else res.status(404).end()
@@ -51,29 +53,28 @@ app.delete('/api/persons/:id', (req, res, next) => {
 })
 
 app.post('/api/persons', (req, res, next) => {
-    const body = req.body
-    const id = Math.floor(Math.random()*10000)
-    const newPerson = new Person({
-        id: id,
-        name: body.name,
-        number: body.number
+    const { name, number } = req.body
+    const person = new Person({
+        name: name,
+        number: number
     })
     
-    newPerson.save().then(savedPerson => {
+    person.save().then(savedPerson => {
         res.json(savedPerson)
     })
-    .catch(error => next(error))
+    .catch(error => {
+        next(error)
+    })
 })
 
 app.put('/api/persons/:id', (req, res, next) => {
-    const body = req.body
+    const { name, number } = req.body
 
-    const person = {
-        name: body.name,
-        number: body.number
-    }
-
-    Person.findByIdAndUpdate(req.params.id, person, { new: true})
+    Person.findByIdAndUpdate(
+        req.params.id, 
+        { name, number },
+        { new: true, runValidators: true, context: query}
+    )
         .then(updatedPerson => {
             console.log(updatedPerson)
             res.json(updatedPerson)
@@ -83,10 +84,11 @@ app.put('/api/persons/:id', (req, res, next) => {
 
 
 const errorHandler = (error, req, res, next) => {
-    console.error(error.message)
 
     if (error.name === 'CastError') {
-        return response.status(400).send({ error: 'malformatted id'})
+        return res.status(400).send({ error: 'malformatted id'})
+    } else if (error.name === 'ValidationError') {
+        return res.status(400).json({ error: error.message })
     }
 
     next(error)
