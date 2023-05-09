@@ -23,13 +23,13 @@ const savePerson = () => {
         number: process.argv[4],
     })
 
-    person.save().then(result => {
+    person.save().then(() => {
         console.log(`person ${person.name} saved!`)
         mongoose.connection.close()
     })
 }
 
-const getPeople = () => { 
+const getPeople = () => {
     console.log('phonebook:')
     Person.find({}).then(result => {
         result.forEach(person => {
@@ -40,13 +40,13 @@ const getPeople = () => {
 }
 
 switch (args) {
-    case 3:
-        getPeople()
-        break
-    case 5:
-        savePerson()
-        break
-    default:
-        console.log('incorrect number of arguments')
-        process.exit(1)
+case 3:
+    getPeople()
+    break
+case 5:
+    savePerson()
+    break
+default:
+    console.log('incorrect number of arguments')
+    process.exit(1)
 }
