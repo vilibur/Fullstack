@@ -66,7 +66,7 @@ const App = () => {
                     }, 5000)
                 })
                 .catch(error => {
-                    setErrorMsg(`Couldn't add ${newName} to database`)
+                    setErrorMsg(error.response.data.error)
                     setTimeout(() => {
                     setErrorMsg(null)
                 }, 5000)
