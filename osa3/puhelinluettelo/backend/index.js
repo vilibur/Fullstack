@@ -65,7 +65,6 @@ app.delete('/api/persons/:id', (req, res) => {
 
 app.post('/api/persons', (req, res) => {
     const body = req.body
-    console.log(req.body)
     if (!body.name) {
         return res.status(400).json({
             error: 'missing name'
@@ -90,7 +89,6 @@ app.post('/api/persons', (req, res) => {
         name: body.name,
         number: body.number
     }
-    console.log(newPerson)
     persons = persons.concat(newPerson)
     res.json(newPerson)
 })
