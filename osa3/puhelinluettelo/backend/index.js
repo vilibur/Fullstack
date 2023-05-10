@@ -75,7 +75,6 @@ app.put('/api/persons/:id', (req, res, next) => {
         { new: true, runValidators: true }
     )
         .then(updatedPerson => {
-            console.log(updatedPerson)
             res.json(updatedPerson)
         })
         .catch(error => next(error))
