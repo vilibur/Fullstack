@@ -1,10 +1,2 @@
-POST http://localhost:3003/api/blogs
-content-type: application/json
+DELETE http://localhost:3003/api/blogs/5a422ba71b54a676234d17fb
 authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1lc3RhcmltZXN0YXJpIiwiaWQiOiI2NDVkZmViY2RhN2ZmNjI3YWM3ODlhZmMiLCJpYXQiOjE2ODM4OTQxMzJ9.dn0vm20EtwFibYXF3602EMSiH4a61bLUva1c9Qcqskk
-
-{
-    "title": "Making cakes3",
-    "author": "Cooking99",
-    "url": "www.cooking99.com",
-    "likes": 5
-}
