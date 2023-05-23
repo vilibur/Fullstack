@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-import blogService from '../services/blogs'
+import { useState } from 'react'
+import PropTypes from 'prop-types'
 
-const AddBlogForm = ({ setSuccMsg }) => {
+const AddBlogForm = ({ addBlog, setSuccMsg }) => {
 
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
@@ -10,10 +10,10 @@ const AddBlogForm = ({ setSuccMsg }) => {
     return (
         <div>
             <h2>create new blog</h2>
-            <form 
-                onSubmit={((event) => {
+            <form
+                onSubmit={ event => {
                     event.preventDefault()
-                    blogService.create(
+                    addBlog(
                         {
                             title: title,
                             author: author,
@@ -24,35 +24,47 @@ const AddBlogForm = ({ setSuccMsg }) => {
                     setTimeout(() => {
                         setSuccMsg(null)
                     }, 5000)
-                })}
+                    setTitle('')
+                    setAuthor('')
+                    setUrl('')
+                }}
             >
                 title:
                 <input
                     type="text"
-                    name="title:"
+                    id="title"
                     value={title}
                     onChange={(({ target }) => setTitle(target.value))}
+                    placeholder='add title'
                 />
                 <br></br>
                 author:
                 <input
                     type="text"
-                    name="author:"
+                    id="author"
                     value={author}
                     onChange={(({ target }) => setAuthor(target.value))}
+                    placeholder='add author'
                 />
                 <br></br>
                 url:
                 <input
                     type="text"
-                    name="url:"
+                    id="url"
                     value={url}
                     onChange={(({ target }) => setUrl(target.value))}
+                    placeholder='add url'
                 />
-                <button type="submit">create</button>
+                <br></br>
+                <button type="submit" id='addblog'>add blog</button>
             </form>
         </div>
     )
+}
+
+AddBlogForm.propTypes = {
+    addBlog: PropTypes.func.isRequired,
+    setSuccMsg: PropTypes.func.isRequired
 }
 
 export default AddBlogForm

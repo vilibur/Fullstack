@@ -1,4 +1,4 @@
-const ErrorMessage = ({ message }) => {
+const ErrorNotification = ({ message }) => {
     if (message === null) {
         return null
     }
@@ -10,4 +10,4 @@ const ErrorMessage = ({ message }) => {
     )
 }
 
-export default ErrorMessage
+export default ErrorNotification
